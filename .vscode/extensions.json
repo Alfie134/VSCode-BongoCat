@@ -1,0 +1,38 @@
+{
+	// See http://go.microsoft.com/fwlink/?LinkId=827846
+	// for the documentation about the extensions.json format
+	"recommendations": [
+		"dbaeumer.vscode-eslint",
+		"ms-vscode.extension-test-runner"
+	]
+}
+
+// VSCode-BongoCat
+// │
+// ├─ .vscode
+// │   ├─ extension.json
+// │   ├─launch.json
+// │   ├─settings.json
+// │   ├─tasks.kson
+// ├─ media
+// │   ├─cat.js
+// │   ├─ index.html
+// │   ├─ style.css
+// ├─ node_modules
+// ├─ src
+// │   ├─ assets
+// │   	├─cat
+// │   ├─ test
+// │   	├─extension.test.ts
+// │   ├─animations.ts
+// │   ├─ extension.ts
+// │   ├─ webview.ts
+// ├─ .vscode_test.mjs
+// ├─ .vscodeignore
+// ├─ bongocat.woff
+// ├─ CHANGELOG.md
+// ├─ eslint.config.mjs
+// ├─ package.json
+// ├─ README.md
+// ├─ tsconfig.json
+// ├─ vsc-extension-quickstart.md
