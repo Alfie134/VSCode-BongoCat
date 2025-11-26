@@ -1,0 +1,29 @@
+{
+    "name": "bongo-terminal-cat",
+    "displayName": "Bongo Terminal Cat",
+    "description": "A larger customizable Bongo Cat that sits above your terminal",
+    "version": "0.0.1",
+    "publisher": "YourNameHere",
+    "engines": {
+        "vscode": "^1.70.0"
+    },
+    "activationEvents": ["onStartupFinished"],
+    "main": "./dist/extension.js",
+    "contributes": {
+        "commands": [
+        {
+            "command": "bongoCat.start",
+            "title": "Start Bongo Cat"
+        }
+        ]
+    },
+    "scripts": {
+        "vscode:prepublish": "npm run build",
+        "build": "tsc -p ./",
+        "watch": "tsc -watch -p ./"
+    },
+    "devDependencies": {
+        "@types/vscode": "^1.70.0",
+        "typescript": "^4.8.4"
+    }
+}
