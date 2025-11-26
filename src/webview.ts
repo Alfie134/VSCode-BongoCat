@@ -28,15 +28,35 @@ function getWebviewContent(webview: vscode.Webview): string {
         vscode.Uri.joinPath(vscode.Uri.file(__dirname), "..", "media", "cat.js")
     );
     return `
-        <html>
+    <html>
         <head>
-            <meta charset="UTF-8"></meta>
-            <title> Bongo Cat </title>
-            <link rel="stylesheet" href="${styleUri}"></link>
+            <meta charset="UTF-8">
+            <link rel="stylesheet" href="${styleUri}">
         </head>
         <body>
-            <div id="bongo-cat"></div>
-            <script src="${scriptUri}"></scirpt>
+        <div id="bongo-cat">
+            <h1 style="color:white;">MEOW</h1>
+        </div>
         </body>
-        </html>`;
-}
+    </html>`;
+//         <html>
+//         <head>
+//             <meta charset="UTF-8"></meta>
+//             <style>
+//                 body {
+//                     background: transparent;
+//                     margin: 0;
+//                     padding: 0;
+//                     overflow: hidden;
+//                 }
+//             </style>
+//         </head>
+//         <body>
+//             <div id="bongo-cat"></div>
+//             <div id="bongo-cat" style="background:rgba(255,105,180,0.4);"></div>
+//             <script src="${scriptUri}">
+//                 document.body.style.background = 'transparent';
+//             </scirpt>
+//         </body>
+//         </html>`;
+    }

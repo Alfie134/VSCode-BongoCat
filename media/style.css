@@ -1,0 +1,19 @@
+#bongo-cat {
+    position: fixed;
+    bottom: 20px;
+    right: 75px;
+    width: 200px;
+    height: 200px;
+    background:rgba(255,105,180,0.4);
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+body {
+    background: transparent !important;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
