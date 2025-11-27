@@ -34,7 +34,6 @@ var __importStar = (this && this.__importStar) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.createCatWebview = createCatWebview;
-exports.hookCatMessaging = hookCatMessaging;
 // Handles sending messages between extension and WebView
 // Resizing with the terminal
 // Position tracking 
@@ -63,16 +62,18 @@ function createCatWebview(context) {
     panel.webview.html = getWebviewContent(panel.webview, context);
     return panel;
 }
-function hookCatMessaging(panel, context) {
-    panel.webview.onDidReceiveMessage(message => {
-        if (message.type === 'requestCatAssets') {
-            panel.webview.postMessage({
-                type: 'catAssets',
-                base: panel.webview.asWebviewUri(vscode.Uri.joinPath(context.extensionUri, 'media')).toString
-            });
-        }
-    });
-}
+// export function hookCatMessaging(panel: vscode.WebviewPanel, context: vscode.ExtensionContext) {
+//     panel.webview.onDidReceiveMessage(message => {
+//         if(message.type === 'requestCatAssets') {
+//             panel.webview.postMessage({
+//                 type: 'catAssets',
+//                 base: panel.webview.asWebviewUri(
+//                     vscode.Uri.joinPath(context.extensionUri, 'media')
+//                 ).toString()
+//             });
+//         }
+//     });
+// }
 function getWebviewContent(webview, context) {
     const styleUri = webview.asWebviewUri(vscode.Uri.joinPath(context.extensionUri, 'media', 'style.css'));
     const scriptUri = webview.asWebviewUri(vscode.Uri.joinPath(context.extensionUri, 'media', 'cat.js'));
@@ -83,9 +84,7 @@ function getWebviewContent(webview, context) {
             <link rel="stylesheet" href="${styleUri}">
         </head>
         <body>
-            <div id="bongo-cat">
-                <h1 style="color:white;">MEOW</h1>
-            </div>
+            <div id="bongo-cat"></div>
 
             <script>
                 const vscode = acquireVsCodeApi();

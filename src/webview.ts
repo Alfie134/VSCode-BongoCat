@@ -41,18 +41,18 @@ export function createCatWebview (context: vscode.ExtensionContext) {
     return panel;
 }
 
-export function hookCatMessaging(panel: vscode.WebviewPanel, context: vscode.ExtensionContext) {
-    panel.webview.onDidReceiveMessage(message => {
-        if(message.type === 'requestCatAssets') {
-            panel.webview.postMessage({
-                type: 'catAssets',
-                base: panel.webview.asWebviewUri(
-                    vscode.Uri.joinPath(context.extensionUri, 'media')
-                ).toString
-            });
-        }
-    });
-}
+// export function hookCatMessaging(panel: vscode.WebviewPanel, context: vscode.ExtensionContext) {
+//     panel.webview.onDidReceiveMessage(message => {
+//         if(message.type === 'requestCatAssets') {
+//             panel.webview.postMessage({
+//                 type: 'catAssets',
+//                 base: panel.webview.asWebviewUri(
+//                     vscode.Uri.joinPath(context.extensionUri, 'media')
+//                 ).toString()
+//             });
+//         }
+//     });
+// }
 
 
 function getWebviewContent(webview: vscode.Webview, context: vscode.ExtensionContext): string {
@@ -71,9 +71,7 @@ vscode.Uri.joinPath(context.extensionUri, 'media', 'cat.js')
             <link rel="stylesheet" href="${styleUri}">
         </head>
         <body>
-            <div id="bongo-cat">
-                <h1 style="color:white;">MEOW</h1>
-            </div>
+            <div id="bongo-cat"></div>
 
             <script>
                 const vscode = acquireVsCodeApi();

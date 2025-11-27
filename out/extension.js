@@ -48,7 +48,7 @@ function activate(context) {
     });
     context.subscriptions.push(startCommand);
     const panel = (0, webview_1.createCatWebview)(context);
-    (0, webview_1.hookCatMessaging)(panel, context);
+    // hookCatMessaging(panel, context);
 }
 function deactivate() { }
 //# sourceMappingURL=extension.js.map

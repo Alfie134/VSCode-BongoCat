@@ -1,10 +1,9 @@
 #bongo-cat {
     position: fixed;
-    bottom: 20px;
+    bottom: 0px;
     right: 75px;
     width: 200px;
     height: 200px;
-    background:rgba(255,105,180,0.4);
     pointer-events: none;
     display: flex;
     align-items: center;
@@ -25,6 +24,15 @@ body {
     100% { transform: translateY(0px); }
 }
 
+@keyframes bop {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-3px);}
+}
+
 #bongo-cat {
     animation: floaty 2.8s ease-in-out infinite;
+}
+
+#bongo-cat.drum {
+    transform: translateY(-4px);
 }
