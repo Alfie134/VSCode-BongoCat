@@ -12,21 +12,58 @@ export function createCatWebview (context: vscode.ExtensionContext) {
         {
             enableScripts: true,
             retainContextWhenHidden: true, 
-            enableCommandUris: true
+            localResourceRoots: [
+                vscode.Uri.joinPath(context.extensionUri),
+                vscode.Uri.joinPath(context.extensionUri, 'media')
+            ]
         }
     );
 
-    panel.webview.html = getWebviewContent(panel.webview);
+    panel.webview.onDidReceiveMessage(message => {
+        console.log('EXTENSION RECIEVED', message);
+
+        if (message.type === 'requestCatAssets') {
+            const baseUri = panel.webview.asWebviewUri(
+                vscode.Uri.joinPath(context.extensionUri, 'media')
+            ).toString();
+
+            console.log("sending base uri:", baseUri);
+
+            panel.webview.postMessage({
+                type: 'catAssets', 
+                base: baseUri
+            });
+        }
+    });
+
+    panel.webview.html = getWebviewContent(panel.webview, context);
+
+    return panel;
 }
 
-function getWebviewContent(webview: vscode.Webview): string {
-    const styleUri = webview.asWebviewUri (
-        vscode.Uri.joinPath(vscode.Uri.file(__dirname), "..", "media", "style.css")
+export function hookCatMessaging(panel: vscode.WebviewPanel, context: vscode.ExtensionContext) {
+    panel.webview.onDidReceiveMessage(message => {
+        if(message.type === 'requestCatAssets') {
+            panel.webview.postMessage({
+                type: 'catAssets',
+                base: panel.webview.asWebviewUri(
+                    vscode.Uri.joinPath(context.extensionUri, 'media')
+                ).toString
+            });
+        }
+    });
+}
+
+
+function getWebviewContent(webview: vscode.Webview, context: vscode.ExtensionContext): string {
+    const styleUri = webview.asWebviewUri(
+        vscode.Uri.joinPath(context.extensionUri, 'media', 'style.css')
     );
 
-    const scriptUri = webview.asWebviewUri (
-        vscode.Uri.joinPath(vscode.Uri.file(__dirname), "..", "media", "cat.js")
-    );
+    const scriptUri = webview.asWebviewUri(
+vscode.Uri.joinPath(context.extensionUri, 'media', 'cat.js')
+);
+
     return `
     <html>
         <head>
@@ -34,29 +71,18 @@ function getWebviewContent(webview: vscode.Webview): string {
             <link rel="stylesheet" href="${styleUri}">
         </head>
         <body>
-        <div id="bongo-cat">
-            <h1 style="color:white;">MEOW</h1>
-        </div>
+            <div id="bongo-cat">
+                <h1 style="color:white;">MEOW</h1>
+            </div>
+
+            <script>
+                const vscode = acquireVsCodeApi();
+                window.addEventListener("DOMContentLoaded", () => {
+                    vscode.postMessage({ type: 'requestCatAssets' });
+                });
+            </script>
+
+            <script src="${scriptUri}"></script>
         </body>
     </html>`;
-//         <html>
-//         <head>
-//             <meta charset="UTF-8"></meta>
-//             <style>
-//                 body {
-//                     background: transparent;
-//                     margin: 0;
-//                     padding: 0;
-//                     overflow: hidden;
-//                 }
-//             </style>
-//         </head>
-//         <body>
-//             <div id="bongo-cat"></div>
-//             <div id="bongo-cat" style="background:rgba(255,105,180,0.4);"></div>
-//             <script src="${scriptUri}">
-//                 document.body.style.background = 'transparent';
-//             </scirpt>
-//         </body>
-//         </html>`;
-    }
+}

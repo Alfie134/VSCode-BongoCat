@@ -3,7 +3,7 @@
     // Listens to typing events
     //Creates the WebView overlay
 
-import { createCatWebview } from './webview';
+import { createCatWebview, hookCatMessaging } from './webview';
 import * as vscode from 'vscode';
 
 export function activate (context: vscode.ExtensionContext) {
@@ -12,10 +12,13 @@ export function activate (context: vscode.ExtensionContext) {
     const startCommand = vscode.commands.registerCommand('bongoCat.start', () => {
         createCatWebview(context);
     });
+    
 
     context.subscriptions.push(startCommand);
 
-    createCatWebview(context);
+    const panel = createCatWebview(context);
+
+    hookCatMessaging(panel, context);
 }
 
 export function deactivate() {}

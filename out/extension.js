@@ -47,7 +47,8 @@ function activate(context) {
         (0, webview_1.createCatWebview)(context);
     });
     context.subscriptions.push(startCommand);
-    (0, webview_1.createCatWebview)(context);
+    const panel = (0, webview_1.createCatWebview)(context);
+    (0, webview_1.hookCatMessaging)(panel, context);
 }
 function deactivate() { }
 //# sourceMappingURL=extension.js.map

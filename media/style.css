@@ -17,3 +17,14 @@ body {
     padding: 0;
     overflow: hidden;
 }
+
+
+@keyframes floaty {
+    0%  { transform: translateY(0px); }
+    50% {transform: translateY(-6px); }
+    100% { transform: translateY(0px); }
+}
+
+#bongo-cat {
+    animation: floaty 2.8s ease-in-out infinite;
+}
